@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View Marks</title>
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-4">
+  <h2>View Student Marks</h2>
+  <form method="post" id="view-marks-form">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="student_id">Select Student:</label>
+      <select name="student_id" id="student_id" class="form-control">
+        {% for student in students %}
+          <option value="{{ student.id }}">{{ student.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="button" class="btn btn-primary" id="view-marks-btn">View Marks</button>
+  </form>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  // JavaScript to handle form submission
+  $(document).ready(function () {
+    
+    $("#view-marks-btn").click(function () {
+      
+      var studentId = $("#student_id").val();
+      
+     
+      $.ajax({
+        type: "POST",
+        url: "{% url 'view_marks' %}",
+        data: {
+          'student_id': studentId,
+          'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success: function (data) {
+         
+          console.log("Form submitted successfully!");
+          
+        },
+        error: function (xhr, errmsg, err) {
+          
+          console.log("Error submitting the form:", errmsg);
+         
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

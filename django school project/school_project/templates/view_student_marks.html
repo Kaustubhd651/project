@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View Student Marks</title>
+  <!-- Add the Bootstrap CSS link here -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-4">
+  <h2>View Student Marks</h2>
+  <form method="post" class="form-inline">
+    {% csrf_token %}
+    <div class="form-group mr-2">
+      <label for="student_id">Select Student:</label>
+      <select name="student_id" id="student_id" class="form-control">
+        {% for student in students %}
+          <option value="{{ student.id }}">{{ student.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">View Student Marks</button>
+  </form>
+</div>
+
+<!-- Add the Bootstrap JS and jQuery script links here for additional features -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
